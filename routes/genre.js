@@ -1,7 +1,8 @@
 const express = require('express');
 const genreRouter = express.Router();
 const Genre = require("../models/Genre");
-
+const authenticate = require('../authenticate');
+const { verifyUser } = authenticate;
 
 genreRouter.route('/')
 .get(async (req, res, next) => {
@@ -14,7 +15,7 @@ genreRouter.route('/')
         next(error);
     }
 })
-.post(async (req, res, next) => {
+.post(verifyUser, async (req, res, next) => {
     try {
         console.log('line 19', req.body)
         const newGenre = await Genre.create(req.body);
@@ -48,7 +49,7 @@ genreRouter.route('/:genreId')
     res.statusCode = 403;
     res.end('post operation not supported on /genre/:genreId');
 })
-.put(async (req, res, next) => {
+.put(verifyUser, async (req, res, next) => {
     try {
         const oGenre = await Genre.findByIdAndUpdate(req.params.genreId, {$set: req.body}, { new: true });
         if (!oGenre) throw new Error(`Genre not found for id ${req.params.genreId}`);
@@ -57,7 +58,7 @@ genreRouter.route('/:genreId')
         next(error);
     }
 })
-.delete(async (req, res, next) => {
+.delete(verifyUser, async (req, res, next) => {
     try {
         const response = await Genre.findByIdAndDelete(req.params.genreId)
         res.json(200, response);
