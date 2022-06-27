@@ -44,9 +44,15 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 });
 
 router.get('/logout', (req, res, next) => {
-	//todo login
-	//clear cookie
-	//
+	if (req.session) {
+		req.session.destroy();
+		req.clearCookie('sessing-id');
+		res.redirect('/');
+	} else {
+		const err = new Error('You are not logged in!');
+		err.status = 401;
+		return next(err);
+	}
 });
 
 module.exports = router;
