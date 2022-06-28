@@ -17,7 +17,6 @@ genreRouter.route('/')
 })
 .post(verifyUser, async (req, res, next) => {
     try {
-        console.log('line 19', req.body)
         const newGenre = await Genre.create(req.body);
         console.log("created new Genre: ", newGenre);
         return res.json(200, newGenre);

@@ -10,6 +10,7 @@ const passport = require('passport');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const genreRouter = require('./routes/genre');
+const profileRouter = require('./routes/profile');
 
 const url = config.mongoUrl;
 const connect = mongoose.connect(url, {
@@ -40,7 +41,8 @@ app.use(passport.initialize());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/genres', genreRouter);
+app.use('/genre', genreRouter);
+app.use('/profile', profileRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
