@@ -11,6 +11,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const genreRouter = require('./routes/genre');
 const profileRouter = require('./routes/profile');
+const recordingRouter = require('./routes/recording');
 
 const url = config.mongoUrl;
 const connect = mongoose.connect(url, {
@@ -43,6 +44,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/genre', genreRouter);
 app.use('/profile', profileRouter);
+app.use('/recording', recordingRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
