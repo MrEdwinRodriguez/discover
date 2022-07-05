@@ -1,37 +1,45 @@
-const {format} = require('util');
-const express = require('express');
-const Multer = require('multer');
-const {Storage} = require('@google-cloud/storage');
-// Instantiate a storage client
-const storage = new Storage();
-// Multer is required to process file uploads and make them available via
-// req.files.
-const multer = Multer({
-    storage: Multer.memoryStorage(),
-    limits: {
-      fileSize: 5 * 1024 * 1024, // no larger than 5mb, you can change as needed.
-    },
-  });
+const gcsHelpers = require('../helpers/google-cloud-storage');
+const keys = require('../config/keys')
+  
+const storage = gcsHelpers.storage;
+const DEFAULT_BUCKET_NAME = "discover-14"; 
 
-  // A bucket is a container for objects (files).
-const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
-
-module.exports = uploadImage = (file) => new Promise((resolve, reject) => {
-    const { name, buffer } = file
-    const blob = bucket.file(name.replace(/ /g, "_"))
-    
-    console.log(blob)
-    const blobStream = blob.createWriteStream({
-        resumable: false
-    })
-    blobStream.on('finish', () => {
-        const publicUrl = format(
-        `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-        )
-        resolve(publicUrl)
-    })
-    .on('error', () => {
-        reject(`Unable to upload image, something went wrong`)
-    })
-    .end(buffer)
-  })
+exports.sendUploadToGCS = (req, res, next) => {
+	req.file = req.files.file;
+	if (!req.file) {
+		return next();
+	}
+	console.log('file uploaded: ', req.file)
+	const bucketName = req.body.bucketName || DEFAULT_BUCKET_NAME;
+	const bucket = storage.bucket(bucketName);
+	const gcsFileName = `${Date.now()}-${req.file.name}`;
+	const file = bucket.file(gcsFileName);
+	const stream = file.createWriteStream({
+		resumable: false,
+		metadata: {
+			contentType: req.file.mimetype,
+		},
+	});
+	stream.on('error', (err) => {
+		req.file.cloudStorageError = err;
+		next(err)
+	});
+	stream.on('finish', () => {
+		console.log('image uploaded succesfully')
+		req.file.cloudStorageObject = gcsFileName;
+		return file.makePublic()
+		.then(() => {
+			req.file.gcsUrl = gcsHelpers.getPublicUrl(bucketName, gcsFileName);
+			next()
+		});
+	});
+	console.log('BUFFER; ', req.files.file.buffer)
+	stream.end(req.file.data);
+	};
+	async function deleteFileGCS(filename) {
+	console.log('IN DELETE FILE FROM GCS')
+	const bucketName =  DEFAULT_BUCKET_NAME;
+	await storage.bucket(bucketName).file(filename).delete();
+	console.log(`gs://${bucketName}/${filename} deleted.`);
+	}
+	exports.deleteFileGCS = deleteFileGCS;
