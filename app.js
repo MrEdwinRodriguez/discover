@@ -6,12 +6,14 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const config = require('./config/config')
 const passport = require('passport');
+const bodyParser = require('body-parser')
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const genreRouter = require('./routes/genre');
 const profileRouter = require('./routes/profile');
 const recordingRouter = require('./routes/recording');
+const multer = require('multer')
 
 const url = config.mongoUrl;
 const connect = mongoose.connect(url, {
@@ -25,6 +27,12 @@ connect.then(() => console.log('Connected correctly to server'),
     err => console.log(err)
 );
 
+const multerMid = multer({
+  storage: multer.memoryStorage(),
+  // limits: {
+  //   fileSize: 5 * 1024 * 1024,
+  // },
+})
 
 const app = express();
 
@@ -37,6 +45,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.disable('x-powered-by')
+app.use(multerMid.single('file'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
 
 app.use(passport.initialize());
 

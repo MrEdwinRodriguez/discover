@@ -4,7 +4,7 @@ const Profile = require('../models/Profile');
 const { verifyUser } = require('../authenticate');
 
 profileRouter.route('/')
-.get(veryfyUser, async (req, res, next) => { 
+.get(verifyUser, async (req, res, next) => { 
     try {
         const aProfile = await Profile.find().exec();
         res.statusCode = 200;
@@ -32,7 +32,7 @@ profileRouter.route('/')
     res.end('Delete operation not supported on /profile');
 });
 
-genreRouter.route('/:profileId')
+profileRouter.route('/:profileId')
 .get(async (req, res, next) => {
     try {
         oGenre = await Genre.findById(req.params.profileId).exec();

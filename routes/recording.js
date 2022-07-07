@@ -2,6 +2,10 @@ const express = require('express');
 const recordingRouter = express.Router();
 const Recording = require('../models/Recording');
 const { verifyUser } = require('../authenticate');
+const bodyParser = require('body-parser')
+// const multer = require('multer')
+const {uploadImage} = require("../helpers/helpers")
+
 
 
 recordingRouter.route('/')
@@ -15,15 +19,15 @@ recordingRouter.route('/')
     };
 })
 .post(async (req, res, next) => {
-    //TODO: add multer middleware
-    //TODO: add gcs save middleware, return req.file.gcsFile
     try {
+        const myFile = req.file
+        const imageUrl = await uploadImage(myFile)
         const recordingObj = {
             ...req.body,
             views: 0,
             actions: [],
             comments: [],
-            recordingLink: req.file.gcsFile
+            recordingLink: imageUrl
         };
         const newRecording = await Recording.create(recordingObj).exec();
         return res.json(200, newRecording);
