@@ -1,10 +1,11 @@
 const express = require('express');
 const recordingRouter = express.Router();
 const Recording = require('../models/Recording');
+const {sendUploadToGCS} = require('../middleware/gcs');
 const { verifyUser } = require('../authenticate');
 const bodyParser = require('body-parser')
 // const multer = require('multer')
-const {uploadImage} = require("../helpers/helpers")
+// const {uploadImage} = require("../helpers/helpers")
 
 
 
@@ -18,16 +19,22 @@ recordingRouter.route('/')
         next(error);
     };
 })
-.post(async (req, res, next) => {
+.post(sendUploadToGCS, async (req, res, next) => {
     try {
-        const myFile = req.file
-        const imageUrl = await uploadImage(myFile)
+        console.log('line 24')
+        // if (req.files === null |r) {
+        //     return res.status(400).json({msg: "Error on upload"})
+        // }
+        // const myFile = req.file
+        // const imageUrl = await uploadImage(myFile)
+        console.log('line 30', req.file)
+        console.log('line 30', req.files)
         const recordingObj = {
             ...req.body,
             views: 0,
             actions: [],
             comments: [],
-            recordingLink: imageUrl
+            recordingLink: req.file.gcsUrl
         };
         const newRecording = await Recording.create(recordingObj).exec();
         return res.json(200, newRecording);

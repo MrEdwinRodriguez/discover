@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "GOOGLE_APPLICATION_CREDENTIALS='./config/discover-354611-62e35343bd39.json' node ./bin/www"
   },
   "dependencies": {
     "@google-cloud/storage": "^6.2.0",
