@@ -3,10 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "GOOGLE_APPLICATION_CREDENTIALS='./config/discover-354611-62e35343bd39.json' node ./bin/www",
-    "server": "nodemon ./bin/www",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "start": "GOOGLE_APPLICATION_CREDENTIALS='./config/discover-354611-62e35343bd39.json' node ./bin/www"
   },
   "dependencies": {
     "@google-cloud/storage": "^6.2.0",
@@ -24,9 +21,5 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.0.1"
-  },
-  "devDependencies": {
-    "concurrently": "^7.3.0",
-    "nodemon": "^2.0.19"
   }
 }
