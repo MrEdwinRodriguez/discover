@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 const App = () => {
   return (
     <Fragment>
-      <Navbar></Navbar>
+      <Navbar />
       <h1>App</h1>
     </Fragment>
   );
