@@ -2,8 +2,8 @@ import React from 'react'
 
 const Navbar = () => {
   return (
-    <div className="sidebar{% if sidebarOptions %} {{sidebarOptions}}{% endif %}" id="sidebar-menu">
-        <div data-scrollable>
+    <div id="sidebar-menu" className="sidebar left sidebar-size-2 sidebar-offset-0 sidebar-visible-desktop sidebar-visible-mobile sidebar-skin-dark">
+        <div data-scrollable tabIndex='0' >
             <div className="sidebar-block">
                 <div className="profile">
                     <img src="images/people/110/guy-6.jpg" alt="people" className="img-circle"/>

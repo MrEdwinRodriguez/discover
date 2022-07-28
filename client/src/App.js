@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
 import { Counter } from './features/counter/Counter';
-import './App.css';
+// import './App.css';
 import Navbar from './components/Navbar';
 
 const App = () => {
   return (
-    <Fragment>
+    <div className='st-container'>
       <Navbar />
       <h1>App</h1>
-    </Fragment>
+    </div>
   );
 }
 
