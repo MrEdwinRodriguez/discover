@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 import Landing from './components/Landing';
 import Jumbotron from './components/Jumbotron';
+import Timeline from './features/timeline/BlockList';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
             <div class="st-content-inner">
                 <Navbar/>
                 <Jumbotron/>
+                <Timeline/>
             </div>
         </div>
       </div>
