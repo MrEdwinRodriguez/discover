@@ -25582,6 +25582,7 @@ html.st-layout .st-content {
 .st-content,
 .st-content-inner {
   position: relative;
+  margin-left: 100px;
 }
 .st-container {
   position: relative;

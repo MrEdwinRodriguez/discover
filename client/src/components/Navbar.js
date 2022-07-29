@@ -1,109 +1,28 @@
-import React from 'react'
-
+import React from 'react';
 const Navbar = () => {
-  return (
-    <div id="sidebar-menu" className="sidebar left sidebar-size-2 sidebar-offset-0 sidebar-visible-desktop sidebar-visible-mobile sidebar-skin-dark">
-        <div data-scrollable tabIndex='0' >
-            <div className="sidebar-block">
-                <div className="profile">
-                    <img src="images/people/110/guy-6.jpg" alt="people" className="img-circle"/>
-                    <h4>Adrian D.</h4>
-                </div>
-            </div>
-            <div className="category">About</div>
-            <div className="sidebar-block">
-                <ul className="list-about">
-                    <li><i className="fa fa-map-marker"></i> Amsterdam, NL</li>
-                    <li><i className="fa fa-link"></i> <a href="#">www.mosaicpro.biz</a></li>
-                    <li><i className="fa fa-twitter"></i> <a href="#">/mosaicprobiz</a></li>
-                </ul>
-            </div>
-            <div className="category">Photos</div>
-            <div className="sidebar-block">
-                <div className="sidebar-photos">
-                    <ul>
-                        <li><a href="#"><img src="images/place1.jpg" alt="people"/></a></li>
-                        <li><a href="#"><img src="images/place2.jpg" alt="people"/></a></li>
-                        <li><a href="#"><img src="images/place3.jpg" alt="people"/></a></li>
-                        <li><a href="#"><img src="images/food1.jpg" alt="people"/></a></li>
-                        <li><a href="#"><img src="images/food1.jpg" alt="people"/></a></li>
-                        <li><a href="#"><img src="images/place3.jpg" alt="people"/></a></li>
-                        <li><a href="#"><img src="images/place2.jpg" alt="people"/></a></li>
-                        <li><a href="#"><img src="images/place1.jpg" alt="people"/></a></li>
-                    </ul>
-                    <a href="#" className="btn btn-primary btn-xs">view all</a>
-                </div>
-            </div>
-            <div className="category">Activity</div>
-            <div className="sidebar-block">
-                <ul className="sidebar-feed">
-                    <li className="media">
-                        <div className="media-left">
-                            <span className="media-object">
-                                <i className="fa fa-fw fa-bell"></i>
-                            </span>
-                        </div>
-                        <div className="media-body">
-                            <a href="" className="text-white">Adrian</a> just logged in
-                            <span className="time">2 min ago</span>
-                        </div>
-                        <div className="media-right">
-                            <span className="news-item-success"><i className="fa fa-circle"></i></span>
-                        </div>
-                    </li>
-                    <li className="media">
-
-                        <div className="media-left">
-                            <span className="media-object">
-                                <i className="fa fa-fw fa-bell"></i>
-                            </span>
-                        </div>
-                        <div className="media-body">
-                            <a href="" className="text-white">Adrian</a> just added  <a href="" className="text-white">mosaicpro</a> as their office
-                            <span className="time">2 min ago</span>
-                        </div>
-                        <div className="media-right">
-                            <span className="news-item-success"><i className="fa fa-circle"></i></span>
-                        </div>
-                    </li>
-                    <li className="media">
-                        <div className="media-left">
-                            <span className="media-object">
-                                <i className="fa fa-fw fa-bell"></i>
-                            </span>
-                        </div>
-                        <div className="media-body">
-                            <a href="" className="text-white">Adrian</a> just logged in
-                            <span className="time">2 min ago</span>
-                        </div>
-                    </li>
-                    <li className="media">
-                        <div className="media-left">
-                            <span className="media-object">
-                                <i className="fa fa-fw fa-bell"></i>
-                            </span>
-                        </div>
-                        <div className="media-body">
-                            <a href="" className="text-white">Adrian</a> just logged in
-                            <span className="time">2 min ago</span>
-                        </div>
-                    </li>
-                    <li className="media">
-                        <div className="media-left">
-                            <span className="media-object">
-                                <i className="fa fa-fw fa-bell"></i>
-                            </span>
-                        </div>
-                        <div className="media-body">
-                            <a href="" className="text-white">Adrian</a> just logged in
-                            <span className="time">2 min ago</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+    return (
+        <nav className="navbar navbar-subnav navbar-static-top margin-bottom-none" role="navigation">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#subnav">
+              <span className="sr-only">Toggle navigation</span>
+              <span className="fa fa-ellipsis-h"></span>
+            </button>
+          </div>
+          <div className="collapse navbar-collapse" id="subnav">
+            <ul className="nav navbar-nav ">
+              <li className="active"><a href="index.html"><i className="fa fa-fw icon-ship-wheel"></i> Timeline</a></li>
+              <li><a href="user-public-profile.html"><i className="fa fa-fw icon-user-1"></i> About</a></li>
+              <li><a href="user-public-users.html"><i className="fa fa-fw fa-users"></i> Friends</a></li>
+            </ul>
+            <ul className="nav navbar-nav hidden-xs navbar-right ">
+              <li><a href="#" data-toggle="chat-box">Chat <i className="fa fa-fw fa-comment-o"></i></a></li>
+            </ul>
+          </div>
         </div>
-    </div>
-  )
-}
 
-export default Navbar
+      </nav>
+    )
+  }
+  
+  export default Navbar
