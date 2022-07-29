@@ -1,18 +1,23 @@
 import React, { Fragment } from 'react';
-import { Counter } from './features/counter/Counter';
 // import './App.css';
 import Sidebar from './components/Sidebar';
-// import Navbar from './components/Navbar';
+import Navbar from './components/Navbar';
 import Landing from './components/Landing';
-import Main from './components/layout/Main';
+import Jumbotron from './components/Jumbotron';
 
 const App = () => {
   return (
     <div className='st-container'>
       <Sidebar />
-      <Main />
+      <div class="st-pusher" id="content">
+        <div class="st-content">
+            <div class="st-content-inner">
+                <Navbar/>
+                <Jumbotron/>
+            </div>
+        </div>
+      </div>
       <Landing />
-      <h1>App</h1>
     </div>
   );
 }
