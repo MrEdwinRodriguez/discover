@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import place2Full from '../../img/place2-full.jpg';
 import commentPerson1 from '../../img/people/50/woman-2.jpg';
 import commentPerson2 from '../../img/people/50/guy-2.jpg';
@@ -6,6 +6,24 @@ import commentPerson3 from '../../img/people/50/guy-3.jpg';
 import commentPerson4 from '../../img/people/50/woman-3.jpg';
 import social from '../../img/social/100/1.jpg';
 import BlockItem from './block/BlockItem';
+import BlockList from './block/BlockList';
+  //dummy data
+  const blockArray = [{
+      name: "Michelle",
+      date: "15th January, 2014",
+      text: 'Late Night Show Photos'
+    },{
+      name: "Tommy",
+      date: "17th January, 2014",
+      text: 'Had so much fun with everyone'
+    },
+    {
+      name: "Jen",
+      date: "18th January, 2014",
+      text: 'Work was so hard today'
+    },
+
+  ]
 
 const TimelineList = () => {
   return (
@@ -29,10 +47,7 @@ const TimelineList = () => {
                   </div>
                 </div>
               </div>
-              <BlockItem/>
-              <BlockItem/>
-              <BlockItem/>
-
+              <BlockList blockArray={blockArray}/>
         </div>
     </div>
   )

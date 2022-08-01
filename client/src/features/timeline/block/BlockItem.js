@@ -8,14 +8,8 @@ import pic3 from '../../../img/social/100/3.jpg';
 import pic4 from '../../../img/people/50/guy-5.jpg';
 import pic5 from '../../../img/people/50/woman-5.jpg';
 
-const BlockItem = () => {
-	// TEMP DATA
-	const name = "Michelle";
-	const date = "15th January, 2014";
-	const postText = 'Late Night Show Photos';
-
+const BlockItem = ({name, date, postText}) => {
   	return (
-  //   <div className="col-xs-12 col-md-6 col-lg-4 item" style={{position: "absolute", left: "391px", top: "0px"}} >
     <div className="col-xs-12 col-md-6 col-lg-4 item"  >
       <div className="timeline-block">
         <div className='panel panel-default'>
@@ -116,10 +110,10 @@ const BlockItem = () => {
                 </li>
                 <li className="comment-form">
                 	<div className="input-group">
-						<span className="input-group-btn">
-							<a href="" className="btn btn-default"><i className="fa fa-photo"></i></a>
-						</span>
-						<input type="text" className="form-control" />
+                    <span className="input-group-btn">
+                      <a href="" className="btn btn-default"><i className="fa fa-photo"></i></a>
+                    </span>
+                    <input type="text" className="form-control" />
             		</div>
             	</li>
           	</ul>
