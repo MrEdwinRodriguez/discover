@@ -16177,3 +16177,9 @@ table.fancytree-ext-table.fancytree-treefocus tbody tr.fancytree-active {
 table.fancytree-ext-table.fancytree-treefocus tbody tr.fancytree-active span.fancytree-node {
   background-color: #428bca;
 }
+
+
+.login {
+  width: 25%;
+  text-align: center;
+}

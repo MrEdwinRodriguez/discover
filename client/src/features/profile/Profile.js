@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const Profile = props => {
+const Profile = () => {
   return (
     <div>
       <h1>Profiel Goes Here</h1>
