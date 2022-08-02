@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Routes, Route } from 'react-router-dom'
 // import './App.css';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
@@ -9,17 +10,13 @@ import Timeline from './features/timeline/TimelineList';
 const App = () => {
   return (
     <div className='st-container'>
-      <Sidebar />
-      <div className="st-pusher" id="content">
-        <div className="st-content">
-            <div className="st-content-inner">
-                <Navbar/>
-                <Jumbotron/>
-                <Timeline/>
-            </div>
-        </div>
-      </div>
-      <Landing />
+      {/* <Routes>
+        <Route path="/" element={<Landing />} /> */}
+
+        <Navbar/>
+        <Timeline/>
+
+      {/* </Routes> */}
     </div>
   );
 }
