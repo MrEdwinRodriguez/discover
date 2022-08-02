@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import BlockList from './block/BlockList';
 import Jumbotron from '../../components/Jumbotron.js';
 import Sidebar from '../../components/Sidebar';
+import Navbar from '../../components/Navbar'
   //dummy data
   const blockArray = [{
       name: "Michelle",
@@ -27,6 +28,7 @@ const TimelineList = () => {
       <div className="st-pusher" id="content">
         <div className="st-content">
           <div className="st-content-inner">
+            <Navbar/>
             <Jumbotron/>
             <div className="container-fluid">
                 <div className="timeline row" data-toggle="isotope">
