@@ -16177,9 +16177,8 @@ table.fancytree-ext-table.fancytree-treefocus tbody tr.fancytree-active {
 table.fancytree-ext-table.fancytree-treefocus tbody tr.fancytree-active span.fancytree-node {
   background-color: #428bca;
 }
-
+.signupForm,
 .loginForm {
-  width: 25%;
   text-align: center;
   margin: auto;
   margin-top: 75px;
@@ -16194,4 +16193,10 @@ table.fancytree-ext-table.fancytree-treefocus tbody tr.fancytree-active span.fan
 
 .login-submit {
   margin: 10px 0px;
+}
+.signupForm {
+  width: 50%;
+}
+.loginForm{
+  width: 25%;
 }
