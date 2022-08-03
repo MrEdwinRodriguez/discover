@@ -16178,8 +16178,20 @@ table.fancytree-ext-table.fancytree-treefocus tbody tr.fancytree-active span.fan
   background-color: #428bca;
 }
 
-
-.login {
+.loginForm {
   width: 25%;
   text-align: center;
+  margin: auto;
+  margin-top: 75px;
+  border: solid 2px;
+  border-color: #e2e9e6;
+  padding: 10px;
+}
+
+.login-container{
+  margin-top: 100px;
+}
+
+.login-submit {
+  margin: 10px; 0px;
 }
