@@ -2,8 +2,8 @@ import React from 'react';
 // import {Form, FormGroup, Input, Label, Button} from 'reactstrap';
 import { FormGroup, Input, Label, Button, Col} from 'reactstrap';
 import {Formik, Field, Form, ErrorMessage } from 'formik';
-import { validateSignup } from '../utils/validateSignup';
-const Signup = () => {
+import { validateSignup } from '../../utils/validateSignup';
+const UserSignUp = () => {
 const handleSubmit = (values, { resetForm }) => {
     console.log(values);
     console.log('JSON format: ', JSON.stringify(values));
@@ -88,4 +88,4 @@ const handleSubmit = (values, { resetForm }) => {
   )
 }
 
-export default Signup
+export default UserSignUp
