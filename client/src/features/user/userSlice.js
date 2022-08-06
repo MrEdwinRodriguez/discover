@@ -1,4 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { baseUrl } from '../../shared/baseUrl';
+
+
+export const registerUser = createAsyncThunk(
+    'user/register',
+    async (payload) => {
+        const response = await fetch(baseUrl + 'signup', {
+            method: 'post',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(payload)
+        });
+        if (!response.ok) {
+            return Promise.reject('Unable to fetch, status: ' + response.status);
+        }
+        const data = await response.json();
+        return data;
+    }
+);
 
 const initialState = {
     currentUser: null
