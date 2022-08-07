@@ -5,6 +5,7 @@ import {setCurrentUser} from './userSlice';
 import { validateLogin } from '../../utils/validateLogin';
 import { useSelector, useDispatch } from 'react-redux';
 
+
 const UserLoginForm = () => {
     // const currentUser = useSelector(selectCurrentUser);
     const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const UserLoginForm = () => {
             username: values.email,
             password: values.password
         };
-        dispatch(setCurrentUser(currentUser));
+        // dispatch(setCurrentUser(currentUser));
     };
     return (
         <div className='content'>

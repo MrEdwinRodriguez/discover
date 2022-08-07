@@ -17,9 +17,10 @@ export const validateSignup = (values) => {
     };
     if (!values.password2) {
         errors.password2 = 'Required';
-    } else if (values.password == values.password2) {
-        errors.password2 = 'Does not match password';
-    }
+    } 
+    // else if (values.password == values.password2) {
+    //     errors.password2 = 'Does not match password';
+    // }
 
     return errors;
 };

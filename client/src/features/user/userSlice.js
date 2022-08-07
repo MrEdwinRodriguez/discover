@@ -4,7 +4,7 @@ import { baseUrl } from '../../shared/baseUrl';
 
 export const registerUser = createAsyncThunk(
     'user/register',
-    async (payload) => {
+    async (payload, {dispatch}) => {
         const response = await fetch(baseUrl + 'signup', {
             method: 'post',
             headers: {'Content-Type':'application/json'},
