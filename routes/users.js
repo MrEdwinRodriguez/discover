@@ -6,7 +6,7 @@ const passport = require('passport');
 const cors = require('../middleware/cors');
 
 /* GET users listing. */
-router.get('/', cors.corsWithOptions, authenticate.verifyUser, async function(req, res, next) {
+router.get('/', authenticate.verifyUser, async function(req, res, next) {
 	try {
 		const users = await User.find().exec();
 		res.statusCode = 200;
@@ -17,9 +17,14 @@ router.get('/', cors.corsWithOptions, authenticate.verifyUser, async function(re
 	};
 });
 
-router.post('/signup', cors.corsWithOptions, (req, res) => {
+router.post('/signup', (req, res) => {
+    console.log('line 21')
     User.register(
-        new User({username: req.body.username}),
+        new User({
+            username: req.body.username,
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+        }),
         req.body.password,
         err => {
             if (err) {
@@ -37,14 +42,14 @@ router.post('/signup', cors.corsWithOptions, (req, res) => {
     );
 });
 
-router.post('/login', cors.corsWithOptions, passport.authenticate('local'), (req, res) => {
+router.post('/login', passport.authenticate('local'), (req, res) => {
     const token = authenticate.getToken({_id: req.user._id});
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.json({success: true, token: token, status: 'You are successfully logged in!'});
 });
 
-router.get('/logout', cors.corsWithOptions, (req, res, next) => {
+router.get('/logout', (req, res, next) => {
 	if (req.session) {
 		req.session.destroy();
 		req.clearCookie('sessing-id');

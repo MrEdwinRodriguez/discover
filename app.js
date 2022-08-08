@@ -15,6 +15,15 @@ const profileRouter = require('./routes/profile');
 const recordingRouter = require('./routes/recording');
 const multer = require('multer')
 
+const cors = require('cors');    
+const corsOpts = {
+    origin: '*',
+    credentials: true,
+    methods: ['GET','POST','HEAD','PUT','PATCH','DELETE'],
+    allowedHeaders: ['Content-Type'],
+    exposedHeaders: ['Content-Type']
+};
+
 const url = config.mongoUrl;
 const connect = mongoose.connect(url, {
   useCreateIndex: true,
@@ -52,6 +61,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 app.use(passport.initialize());
 
+app.use(cors(corsOpts));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/genre', genreRouter);
