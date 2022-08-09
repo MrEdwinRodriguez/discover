@@ -8,6 +8,7 @@ import Timeline from './features/timeline/TimelineList';
 import Profile from './features/profile/Profile';
 import Login from './features/user/UserLoginForm';
 import Signup from './features/user/UserSignup';
+import Recording from './features/recordings/Recording';
 import { fetchBlocks } from './features/timeline/timelineSlice';
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/timeline" element={<Timeline/>} />
         <Route path="/profile" element={<Profile/>}/>
+        <Route path="/record" element={<Recording/>}/>
       </Routes>
     </div>
   );
