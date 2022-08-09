@@ -1,25 +1,29 @@
 import React from 'react';
 import { FormGroup, Input, Label, Button, Col} from 'reactstrap';
 import {Formik, Field, Form, ErrorMessage } from 'formik';
-import {setCurrentUser} from './userSlice';
+import {setCurrentUser, loginUser} from './userSlice';
 import { validateLogin } from '../../utils/validateLogin';
 import { useSelector, useDispatch } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 
 const UserLoginForm = () => {
-    // const currentUser = useSelector(selectCurrentUser);
     const dispatch = useDispatch();
-
-    const handleSubmit = (values, { resetForm }) => {
+    const navigate = useNavigate();
+    const handleSubmit = (values, { resetForm}) => {
         console.log(values);
         console.log('JSON format: ', JSON.stringify(values));
         resetForm();
         const currentUser = {
-            id: 21,
-            username: values.email,
-            password: values.password
+            id: "62f10696f32c6b32beaf59c3",
+            username: 'testing@aol.com',
+            password: 'password'
         };
-        // dispatch(setCurrentUser(currentUser));
+        dispatch(loginUser(currentUser))
+        .then(() => {
+            navigate('/timeline')
+        });
     };
     return (
         <div className='content'>
