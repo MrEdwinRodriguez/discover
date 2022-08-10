@@ -4,6 +4,7 @@ const User = require('../models/User');
 const authenticate = require('../authenticate');
 const passport = require('passport');
 const cors = require('../middleware/cors');
+const sanatizeObj = require('../helpers/sanatizePayload');
 
 /* GET users listing. */
 router.get('/', authenticate.verifyUser, async function(req, res, next) {
@@ -46,7 +47,9 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
     const token = authenticate.getToken({_id: req.user._id});
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
-    res.json({success: true, token: token, status: 'You are successfully logged in!'});
+    const userObj = sanatizeObj.sanatizeUser(req.user);
+
+    res.json({success: true, token: token, user: userObj, status: 'You are successfully logged in!'});
 });
 
 router.get('/logout', (req, res, next) => {

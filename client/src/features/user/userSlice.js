@@ -29,8 +29,7 @@ export const loginUser = createAsyncThunk(
             return Promise.reject('Unable to fetch, status: ' + response.status);
         };
         const data = await response.json();
-        console.log(data)
-        dispatch(setCurrentUser(data));
+        return data;
     }
 );
 
@@ -65,6 +64,7 @@ const userSlice = createSlice({
         [loginUser.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.errMsg = "";
+            state.currentUser = action.payload;
         },
         [loginUser.rejected]: (state, action) => {
             state.isLoading = false;
