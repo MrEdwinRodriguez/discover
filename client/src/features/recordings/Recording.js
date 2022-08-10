@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
- 
+import React, { Component } from 'react';
+import {saveRecording } from './recordingSlice';
 import AudioReactRecorder, { RecordState } from 'audio-react-recorder'
  
 class Recording extends Component {
@@ -37,6 +37,7 @@ class Recording extends Component {
     this.setState({
       url: audioData.url
     })
+
   }
  
   render() {
