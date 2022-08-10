@@ -18,7 +18,24 @@ export const saveRecording = createAsyncThunk(
     }
 )
 
+export const fetchUserRecordings = createAsyncThunk(
+    'recording/fetchUsersAll',
+    async (userId, {dispatch}) => {
+        const response = await fetch(baseUrl + `recording/user/${userId}`, {
+            method: 'post',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(payload)
+        });
+        if (!response.ok) {
+            return Promise.reject('Unable to fetch, status: ' + response.status);
+        }
+        const data = await response.json();
+        dispatch(setAllUserRecordings(data));
+    }
+);
+
 const initialState = {
+    recordingsArray: [],
     recording: "",
     loding: true,
     errMsg: ""
@@ -30,7 +47,10 @@ const recordingSlice = createSlice({
     reducers: {
         setCurrentRecording: (state, action) => {
             return {...state, recording: action.payload}
-        }
+        },
+        setAllUserRecordings: (state, action) => {
+            return {...state, recordingsArray: action.payload}
+        },
     },
     extraReducers: {
         [saveRecording.pending] : (state) => {
@@ -51,3 +71,7 @@ const recordingSlice = createSlice({
 export const recordingReducer = recordingSlice.reducer;
 
 export const { setCurrentRecording } = recordingSlice.actions;
+
+export const selectRecordingById = (id) => (state) => {
+    return state.recordings.recordingsArray.find(recording => recording._id+"" === parseInt(id));
+};
