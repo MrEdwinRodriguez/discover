@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const Profile = require('../models/Profile');
 const authenticate = require('../authenticate');
 const passport = require('passport');
 const cors = require('../middleware/cors');
@@ -43,12 +44,14 @@ router.post('/signup', (req, res) => {
     );
 });
 
-router.post('/login', passport.authenticate('local'), (req, res) => {
+router.post('/login', passport.authenticate('local'), async (req, res) => {
     const token = authenticate.getToken({_id: req.user._id});
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     const userObj = sanatizeObj.sanatizeUser(req.user);
+    const profile = await Profile.findOne({user: userObj._id });
 
+    userObj.profile = profile ? profile : {'city': "Orlando", 'state': "FL", "social": {twitter: "www.twitter.com", facebook: "facebook.com"}};
     res.json({success: true, token: token, user: userObj, status: 'You are successfully logged in!'});
 });
 
