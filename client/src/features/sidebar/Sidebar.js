@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react'
-import { selectCurrentUser} from '../../features/user/userSlice';
+import { selectCurrentUser} from '../user/userSlice';
 import { useSelector } from 'react-redux';
 import SidebarAbout from './SidebarAbout';
 import SidebarPhotos from './SidebarPhotos';

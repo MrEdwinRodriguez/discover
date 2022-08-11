@@ -78,5 +78,5 @@ export const userReducer = userSlice.reducer;
 export const { setCurrentUser } = userSlice.actions;
 
 export const selectCurrentUser = (state) => {
-    return state.user.currentUser;
+    return state.user.currentUser ? state.user.currentUser.user : state.user.currentUser;
 };

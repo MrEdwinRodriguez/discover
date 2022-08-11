@@ -1,6 +1,6 @@
 exports.sanatizeUser = (user) => {
     const userObj = {...user.toObject()};
-    console.log(userObj)
+    userObj.full_name = userObj.first_name + " " + userObj.last_name;
     delete userObj.salt;
     delete userObj.hash;
     delete userObj.createdAt;

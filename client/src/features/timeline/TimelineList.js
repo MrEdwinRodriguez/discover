@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import BlockList from './block/BlockList';
 import Jumbotron from '../../components/Jumbotron.js';
-import Sidebar from '../../components/Sidebar';
+import Sidebar from '../sidebar/Sidebar';
 import Navbar from '../../components/Navbar'
   //dummy data
   const blockArray = [{
