@@ -16194,9 +16194,23 @@ table.fancytree-ext-table.fancytree-treefocus tbody tr.fancytree-active span.fan
 .login-submit {
   margin: 10px 0px;
 }
-.signupForm {
-  width: 50%;
+.loginForm, .signupForm {
+  width: 30%;
 }
-.loginForm{
-  width: 25%;
+
+.sign-in{
+  margin-bottom: 20px !important;
+}
+
+.landing {
+  border: 2px solid black;
+  padding: 25px;
+  background: url("../../images//mic.jpg");
+  background-repeat: no-repeat;
+  background-size: auto;
+  height: auto;
+}
+
+.lock-container .panel input {
+  margin-bottom: 10px;
 }

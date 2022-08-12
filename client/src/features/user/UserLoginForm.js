@@ -22,6 +22,7 @@ const UserLoginForm = () => {
         };
         dispatch(loginUser(currentUser))
         .then(() => {
+            console.log('line 25')
             navigate('/timeline')
         });
     };
@@ -29,10 +30,10 @@ const UserLoginForm = () => {
         <div className='content'>
         <div className='content-fluid'>
             <div className='lock-container login-container'>
-            <div className="text-center loginForm">
-                <main className="form-signin w-100 m-auto">   
-                <img className="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57" />
-                <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+            <div className="text-center loginForm panel panel-default">
+                <main className="form-signin">   
+                {/* <img className="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57" /> */}
+                <h1 className="h3">Sign In</h1>
                 <Formik
                     initialValues={{
                     email: "",
@@ -42,30 +43,30 @@ const UserLoginForm = () => {
                 validate={validateLogin}
                 >
                     <Form>
+                        <div className="panel-body">
                     <FormGroup row>
-                        <Label htmlFor="email" md='2'>Email</Label>
-                        <Col md='10'>
-                        <Field type="email" name="email" id="email" placeholder="with a placeholder" />
+                        <Col md='12'>
+                        <Field type="email" name="email" id="email" placeholder="Email" className="form-control" />
                         <ErrorMessage name="email">
                             {(msg) => <p className='text-danger'>{msg}</p>}
                         </ErrorMessage>
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label htmlFor="password" md='2'>Password</Label>
-                        <Col md='10'>
-                        <Field type="password" name="password" id="password" placeholder="password placeholder" />
+                        <Col md='12'>
+                        <Field type="password" name="password" id="password" placeholder="Password" className="form-control" />
                         <ErrorMessage name="password">
                             {(msg) => <p className='text-danger'>{msg}</p>}
                         </ErrorMessage>
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Button className="btn login-submit" type='submit' color='primary'>Submit</Button><br></br>
+                        <Button className="login-submit" type='submit' color='primary'>Submit</Button><br></br>
                     </FormGroup>
                     <FormGroup row>
                         <a href="#" class="forgot-password">Forgot password?</a>
                     </FormGroup>
+                    </div>
                     </Form>
                 </Formik>
                 </main>
