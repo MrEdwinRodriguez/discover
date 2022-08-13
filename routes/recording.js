@@ -74,7 +74,6 @@ recordingRouter.get("user/:userId")
 })
 
 
-//TODO: /:recordingId GET, PUT, DELETE
 recordingRouter.get('/:recordingId')
 .get(async (req, res, next) => {
     try {
@@ -216,5 +215,48 @@ recordingRouter.route('/:recordingId/comments/:commentId')
 
 
 //TODO: /:recordingId/action GET POST(Post will handle adding and removing likes)
+recordingRouter.route('/:recordingId/action')
+.get((req, res, next) => {
+    res.statusCode = 403;
+    res.end(`GET operation not supported on /recording/${req.params.recordingId}/action`);
+})
+.post(async (req, res, next) => {
+    try {
+        const { like, dislike } = req.body;
+        if (like === dislike) throw new Error('Cannot like and dislike a recording.');
+        const recording = await Recording.findById(req.params.recordingId).populate('comments.user').exec();
+        if (!recording) throw new Error(`Cannot find recodoring ${req.params.recordingId}.`);
+        if (!recording.actions) {
+            recording.actions = [{
+                user: req.user._id,
+                like: like,
+                dislike: dislike
+            }];
+        } else if (recording.actions.find(action => action.user+"" ==  req.user._id+"")) {
+            const index = recording.actions.findIndex(action => action.user+"" ==  req.user._id+"");
+            recording.actions[index].like = like;
+            recording.actions[index].dislike = dislike;
+        } else {
+            const action = {
+                user: req.user._id,
+                like: like,
+                dislike: dislike
+            };
+            recording.actions.push(action);
+        };
+        await recording.save();
+        res.json(200, recording);
+    } catch(error) {
+        next(error); 
+    }
+})
+.put((req, res, next) => {
+    res.statusCode = 403;
+    res.end(`PUT operation not supported on /recording/${req.params.recordingId}/action`);
+})
+.delete((req, res, next) => {
+    res.statusCode = 403;
+    res.end(`Delete operation not supported on /recording/${req.params.recordingId}/action`);
+});
 
 module.exports = recordingRouter;
