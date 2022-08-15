@@ -9,7 +9,8 @@ exports.sendUploadToGCS = async (req, res, next) => {
 	// if (!req.file) {
 	// 	return next();
 	// }
-	console.log('file uploaded: ', req.file)
+	console.log('line 12')
+	console.log('file uploaded: ', req.body)
 	const bucketName = req.body.bucketName || DEFAULT_BUCKET_NAME;
 	const bucket = storage.bucket(bucketName);
 	const name = req.body.name.replace(" ", '_')

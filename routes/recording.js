@@ -2,11 +2,47 @@ const express = require('express');
 const recordingRouter = express.Router();
 const Recording = require('../models/Recording');
 const {sendUploadToGCS} = require('../middleware/gcs');
+const Multer = require('multer');
+const multerGoogleStorage = require('multer-google-storage');
 const { verifyUser } = require('../authenticate');
 const bodyParser = require('body-parser')
+const DEFAULT_BUCKET_NAME = "discover_recordings"; 
+const gcsHelpers = require('../helpers/google-cloud-storage')
+// const storage = gcsHelpers.storage;
+const {Storage} = require('@google-cloud/storage');
 // const multer = require('multer')
 // const {uploadImage} = require("../helpers/helpers")
+// const unploadHandler = multer({
+//     storage: multerGoogleStorage.storageEngine({
+//         autoRetry: true,
+//         bucket: DEFAULT_BUCKET_NAME,
+//         projectId: storage.projectId,
+//         keyFilename: storage.keyFileName,
+//         filename: (req, file, cb) => {
+//             cb(null, `/projectimages/${Date.now()}_${req.file.originalname}`);
+//         }
+//     })
+// });
+const storage = new Storage();
+const multer = Multer({
+    storage: Multer.memoryStorage(),
+    limits: {
+      fileSize: 5 * 1024 * 1024, // no larger than 5mb, you can change as needed.
+    },
+  });
+  const bucket = storage.bucket(DEFAULT_BUCKET_NAME);
 
+//recording/uplodad  POST
+// recordingRouter.route('/upload')
+recordingRouter.post('/upload', async (req, res, next) => {
+    console.log(req.file)
+    if (!req.file) {
+        res.status(400).send('No file uploaded.');
+        return;
+    }
+    
+    res.json({"route": '/recording/upload'})
+});
 
 
 recordingRouter.route('/')

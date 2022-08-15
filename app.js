@@ -49,15 +49,20 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+// bodyParser = {
+//   json: {limit: '50mb', extended: true},
+//   urlencoded: {limit: '50mb', extended: true}
+// };
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.disable('x-powered-by')
-app.use(multerMid.single('file'))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
+// app.use(multerMid.single('file'))
+app.use(bodyParser.json({limit: '10000kb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '10000kb', extended: true}))
+// app.use(bodyParser.urlencoded({extended: false}))
 
 app.use(passport.initialize());
 
