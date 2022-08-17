@@ -3,7 +3,7 @@ import { FormGroup, Input, Label, Button, Col} from 'reactstrap';
 
 const Landing = () => {
   return (
-    <div className='content'>
+    <div className='content landing'>
     Landing
     </div>
     

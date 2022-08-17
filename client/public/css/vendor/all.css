@@ -16203,13 +16203,14 @@ table.fancytree-ext-table.fancytree-treefocus tbody tr.fancytree-active span.fan
 }
 
 .landing {
+  height:100vh;
   border: 2px solid black;
   padding: 25px;
   background: url("../../images//mic.jpg");
-  background-repeat: no-repeat;
-  background-size: auto;
-  height: auto;
-}
+  background-repeat: no-repeat; 
+  background-size: 100%;
+  opacity: 0.6;
+ }
 
 .lock-container .panel input {
   margin-bottom: 10px;
