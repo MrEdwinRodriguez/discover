@@ -56,6 +56,7 @@ recordingRouter.route('/')
     };
 })
 .post(sendUploadToGCS, async (req, res, next) => {
+// .post(async (req, res, next) => {
     try {
         console.log('line 24')
         // if (req.files === null |r) {
@@ -64,7 +65,7 @@ recordingRouter.route('/')
         // const myFile = req.file
         // const imageUrl = await uploadImage(myFile)
         console.log('line 30', req.file)
-        console.log('line 30', req.files)
+        console.log('line 30', req.body)
         const recordingObj = {
             ...req.body,
             views: 0,
