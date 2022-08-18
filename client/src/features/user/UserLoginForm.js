@@ -27,7 +27,7 @@ const UserLoginForm = () => {
         });
     };
     return (
-        <div className='content'>
+        <div className='content landing'>
         <div className='content-fluid'>
             <div className='lock-container login-container'>
             <div className="text-center loginForm panel panel-default">

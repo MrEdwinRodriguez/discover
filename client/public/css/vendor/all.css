@@ -16181,21 +16181,21 @@ table.fancytree-ext-table.fancytree-treefocus tbody tr.fancytree-active span.fan
 .loginForm {
   text-align: center;
   margin: auto;
-  margin-top: 75px;
   border: solid 2px;
   border-color: #e2e9e6;
   padding: 10px;
+  position: absolute;
+  top: 125px;
 }
 
-.login-container{
-  margin-top: 100px;
-}
 
 .login-submit {
   margin: 10px 0px;
 }
 .loginForm, .signupForm {
   width: 30%;
+  z-index: 1;
+  position:relative;
 }
 
 .sign-in{
@@ -16204,13 +16204,22 @@ table.fancytree-ext-table.fancytree-treefocus tbody tr.fancytree-active span.fan
 
 .landing {
   height:100vh;
-  border: 2px solid black;
-  padding: 25px;
-  background: url("../../images//mic.jpg");
-  background-repeat: no-repeat; 
-  background-size: 100%;
-  opacity: 0.6;
+  position: relative;
  }
+
+ .landing::after {
+    content: "";
+    background-size: cover;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.5 ;
+    background: url("../../images/mic.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% !important;
+  }
 
 .lock-container .panel input {
   margin-bottom: 10px;
