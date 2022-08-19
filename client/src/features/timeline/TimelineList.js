@@ -3,6 +3,7 @@ import BlockList from './block/BlockList';
 import Jumbotron from '../../components/Jumbotron.js';
 import Sidebar from '../sidebar/Sidebar';
 import Navbar from '../../components/Navbar'
+import BlockCreate from './block/BlockCreate';
   //dummy data
   const blockArray = [{
       name: "Michelle",
@@ -32,25 +33,8 @@ const TimelineList = () => {
             <Jumbotron/>
             <div className="container-fluid">
                 <div className="timeline row" data-toggle="isotope">
-                    <div className="col-xs-12 col-md-6 col-lg-4 item">
-                        <div className="timeline-block">
-                          <div className="panel panel-default share clearfix-xs">
-                            <div className="panel-heading panel-heading-gray title">
-                              What&acute;s new
-                            </div>
-                            <div className="panel-body">
-                              <textarea name="status" className="form-control share-text" rows="3" placeholder="Share your status..."></textarea>
-                            </div>
-                            <div className="panel-footer share-buttons">
-                              <a href="#"><i className="fa fa-map-marker"></i></a>
-                              <a href="#"><i className="fa fa-photo"></i></a>
-                              <a href="#"><i className="fa fa-video-camera"></i></a>
-                              <button type="submit" className="btn btn-primary btn-xs pull-right display-none" href="#">Post</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <BlockList blockArray={blockArray}/>
+                  <BlockCreate />
+                  <BlockList blockArray={blockArray}/>
                 </div>
             </div>
           </div>
