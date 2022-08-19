@@ -4,7 +4,7 @@ import {Formik, Field, Form, ErrorMessage } from 'formik';
 import {setCurrentUser, loginUser} from './userSlice';
 import { validateLogin } from '../../utils/validateLogin';
 import { useSelector, useDispatch } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 
 
@@ -64,7 +64,10 @@ const UserLoginForm = () => {
                         <Button className="login-submit" type='submit' color='primary'>Submit</Button><br></br>
                     </FormGroup>
                     <FormGroup row>
-                        <a href="#" class="forgot-password">Forgot password?</a>
+                        You do not have an account? <Link to='/signup' class="forgot-password">Register</Link>
+                    </FormGroup>
+                    <FormGroup row>
+                        <Link to="/forgot_password" class="forgot-password">Forgot Password?</Link>
                     </FormGroup>
                     </div>
                     </Form>

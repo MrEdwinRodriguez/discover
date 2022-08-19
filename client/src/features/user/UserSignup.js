@@ -1,10 +1,11 @@
 import React from 'react';
 // import {Form, FormGroup, Input, Label, Button} from 'reactstrap';
-import { FormGroup, Input, Label, Button, Col} from 'reactstrap';
+import { FormGroup, Button, Col} from 'reactstrap';
 import {registerUser} from './userSlice';
 import { useDispatch } from 'react-redux';
 import {Formik, Field, Form, ErrorMessage } from 'formik';
 import { validateSignup } from '../../utils/validateSignup';
+import {Link} from 'react-router-dom';
 const UserSignUp = () => {
 	const dispatch = useDispatch();
 	const handleSubmit = (values, { resetForm }) => {
@@ -80,6 +81,9 @@ const UserSignUp = () => {
 							</FormGroup>
 							<FormGroup row>
 								<Button className="login-submit" type='submit' color='primary'>Submit</Button><br></br>
+							</FormGroup>
+							<FormGroup row>
+								Do you already have an account? <Link to='/login' class="forgot-password">Login</Link>
 							</FormGroup>
 							</Form>
               			</Formik>
