@@ -13,6 +13,7 @@ const usersRouter = require('./routes/users');
 const genreRouter = require('./routes/genre');
 const profileRouter = require('./routes/profile');
 const recordingRouter = require('./routes/recording');
+const postRouter = require('./routes/post');
 const multer = require('multer')
 
 const cors = require('cors');    
@@ -72,6 +73,7 @@ app.use('/users', usersRouter);
 app.use('/genre', genreRouter);
 app.use('/profile', profileRouter);
 app.use('/recording', recordingRouter);
+app.use('/post', postRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
