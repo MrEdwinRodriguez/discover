@@ -14,6 +14,13 @@ export const fetchBlocks = createAsyncThunk(
     }
 );
 
+export const createComment = createAsyncThunk(
+    'timeline/postComment',
+    async () => {
+        // TODO create postComment
+    }
+);
+
 const initialState = {
     timelineArray: BLOCKS,
     isLoading: true,
@@ -35,6 +42,18 @@ const timelineSlice = createSlice({
         [fetchBlocks.rejected]: (state, action) => {
             state.isLoading = false;
             state.errMsg = action.error ? action.error.message : 'Fetch failed';
+        },
+        [createComment.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [createComment.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.errMsg = '';
+            state.timelineArray.unshift(action.payload)
+        },
+        [createComment.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.errMsg = action.error ? action.error.message : 'Failed to post comment.';
         }
     }
 });
