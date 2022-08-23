@@ -14,10 +14,35 @@ export const fetchBlocks = createAsyncThunk(
     }
 );
 
-export const createComment = createAsyncThunk(
-    'timeline/postComment',
-    async () => {
-        // TODO create postComment
+export const createPost = createAsyncThunk(
+    'timeline/createPost',
+    async (payload) => {
+        const response = await fetch(baseUrl + 'post', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        })
+        if(!response.ok) {
+            return Promise.reject('Unable to fetch, status: ' + response.status); 
+        };
+        const data = await response.json();
+        return data;
+    }
+);
+
+export const editPost = createAsyncThunk(
+    'timeline/editPost',
+    async (payload) => {
+        const response = await fetch(baseUrl + 'post', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        })
+        if(!response.ok) {
+            return Promise.reject('Unable to fetch, status: ' + response.status); 
+        };
+        const data = await response.json();
+        return data;
     }
 );
 
@@ -43,15 +68,30 @@ const timelineSlice = createSlice({
             state.isLoading = false;
             state.errMsg = action.error ? action.error.message : 'Fetch failed';
         },
-        [createComment.pending]: (state) => {
+        [createPost.pending]: (state) => {
             state.isLoading = true;
         },
-        [createComment.fulfilled]: (state, action) => {
+        [createPost.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.errMsg = '';
             state.timelineArray.unshift(action.payload)
         },
-        [createComment.rejected]: (state, action) => {
+        [createPost.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.errMsg = action.error ? action.error.message : 'Failed to post comment.';
+        },
+        [editPost.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [editPost.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.errMsg = '';
+            const index = state.timelineArray.findIndex(post => {
+                return post._id == action.payload._id;
+            })
+            if (index >= 0) state.timelineArray[index] = action.payload;
+        },
+        [editPost.rejected]: (state, action) => {
             state.isLoading = false;
             state.errMsg = action.error ? action.error.message : 'Failed to post comment.';
         }
