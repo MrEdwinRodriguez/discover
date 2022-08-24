@@ -1,6 +1,7 @@
 const express = require('express');
 const recordingRouter = express.Router();
 const Recording = require('../models/Recording');
+const Profile = require('../models/Post');
 const {sendUploadToGCS} = require('../middleware/gcs');
 const Multer = require('multer');
 const multerGoogleStorage = require('multer-google-storage');
@@ -74,6 +75,19 @@ recordingRouter.route('/')
             recordingLink: req.file.gcsUrl
         };
         const newRecording = await Recording.create(recordingObj).exec();
+        //recording is linked to a post
+        const profile = await Profile.findOne({user: newRecording.user}).exec();
+        const postObj = {
+            user: req.user._id,
+            profile: profile._id,
+            text: profile.description,
+            actions: [],
+            recording: newRecording._id,
+            comments: [],
+            views: 0
+        }
+        const newPost = await Post.create(postObj);
+        console.log("created new Post: ", newPost);
         return res.json(200, newRecording);
     } catch (error) {
         next(error);
