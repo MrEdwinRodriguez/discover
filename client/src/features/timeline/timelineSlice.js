@@ -46,6 +46,22 @@ export const editPost = createAsyncThunk(
     }
 );
 
+export const deletePost = createAsyncThunk(
+    'timeline/deletePost',
+    async(payload) => {
+        const response = await fetch(baseUrl + 'post', {
+            method: 'delete',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        })
+        if(!response.ok) {
+            return Promise.reject('Unable to fetch, status: ' + response.status); 
+        };
+        const data = await response.json();
+        return data;
+    }
+);
+
 const initialState = {
     timelineArray: BLOCKS,
     isLoading: true,
@@ -92,6 +108,19 @@ const timelineSlice = createSlice({
             if (index >= 0) state.timelineArray[index] = action.payload;
         },
         [editPost.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.errMsg = action.error ? action.error.message : 'Failed to post comment.';
+        },
+        [deletePost.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [deletePost.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.errMsg = '';
+            state.timelineArray = state.timelineArray.filter(post => post._id != action.payload._id);
+
+        },
+        [deletePost.rejected]: (state, action) => {
             state.isLoading = false;
             state.errMsg = action.error ? action.error.message : 'Failed to post comment.';
         }
