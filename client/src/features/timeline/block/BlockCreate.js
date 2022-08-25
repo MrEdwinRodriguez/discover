@@ -1,10 +1,12 @@
 import { Formik, Field, Form} from "formik";
 import {Button, FormGroup, Label } from 'reactstrap';
 import { useState } from "react";
+import { createPost } from '../timelineSlice';
+import { useDispatch } from 'react-redux';
 
 const BlockCreate = () => {
     const [showSubmit, setShowSubmit] = useState(true);
-
+    const dispatch = useDispatch();
     // TODO fix onchange of text area.  Set initialstate to false
     const handleChange = (event) => {
         if(event.target.value.length > 0)
@@ -12,14 +14,15 @@ const BlockCreate = () => {
         else setShowSubmit(false)
     };
 
-    const handleSubmit = (values) => {
+    const handleSubmit = (values, { resetForm }) => {
         console.log(values)
         const comment = {
             text: values.commentText,
-            date: new Date(Date.now()).toISOString()
+            _id: "62fe170a5c0414784c229e79"
         };
         console.log('Comment Object: ', comment);
-        // dispatch(postComments(comment));
+        dispatch(createPost(comment));
+        resetForm();
     };
     return (
         <div className="col-xs-12 col-md-6 col-lg-4 item">

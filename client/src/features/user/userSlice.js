@@ -29,6 +29,7 @@ export const loginUser = createAsyncThunk(
             return Promise.reject('Unable to fetch, status: ' + response.status);
         };
         const data = await response.json();
+        localStorage.setItem('jwtToken', data.token);
         return data;
     }
 );

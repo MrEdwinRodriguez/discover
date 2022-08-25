@@ -1,6 +1,8 @@
 const express = require('express');
 const postRouter = express.Router();
 const Post = require('../models/Post');
+const Profile = require('../models/Profile');
+const { verifyUser } = require('../authenticate');
 
 postRouter.route('/')
 .get(async (req, res, next) => {
@@ -13,11 +15,23 @@ postRouter.route('/')
         next(error);
     }
 })
-.post(async (req, res, next) => {
+.post(verifyUser, async (req, res, next) => {
     try {
-        const newPost = await Post.create(req.body);
-        console.log("created new Post: ", newPost);
-        return res.json(200, newPost);
+        console.log('line 20 ', req.body)
+        console.log('line 20 ', req.user)
+        return res.json(200, {success: true});
+        // const profile = await Profile.findOne({user: req.body._id}).exec()
+        // const postObject = {
+        //     profile: profile ? profile._id : null,
+        //     user: req.body._id,
+        //     text: req.body.text,
+        //     actions: [],
+        //     comments: [],
+        //     views: 0
+        // };
+        // const newPost = await Post.create(postObject);
+        // console.log("created new Post: ", newPost);
+        // return res.json(200, newPost);
     } catch (error) {
         next(error);
     };
