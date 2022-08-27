@@ -16,6 +16,38 @@ export const getProfile = createAsyncThunk(
     }
 );
 
+export const createProfile = createAsyncThunk(
+    'profile/create',
+    async (payload) => {
+        const response = await fetch(baseUrl + 'profile/'+payload._id, {
+            method: 'post',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(payload)
+        });
+        if (!response.ok) {
+            return Promise.reject('Unable to fetch, status: ' + response.status);
+        }
+        const data = await response.json();
+        return data;
+    }
+);
+
+export const updateProfile = createAsyncThunk(
+    'profile/update',
+    async (payload) => {
+        const response = await fetch(baseUrl + 'profile/'+payload._id, {
+            method: 'put',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(payload)
+        });
+        if (!response.ok) {
+            return Promise.reject('Unable to fetch, status: ' + response.status);
+        }
+        const data = await response.json();
+        return data;
+    }
+);
+
 const initialState = {
     profile: "",
     errMsg: ""
@@ -32,8 +64,33 @@ const profileSlice = createSlice({
         [getProfile.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.errMsg = "";
+            state.profile = action.payload;
         },
         [getProfile.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.errMsg = action.error ? action.error.message : 'Fetch failed';
+        },
+        [updateProfile.pending] : (state) => {
+            state.isLoading = true
+        },
+        [updateProfile.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.errMsg = "";
+            state.profile = action.payload;
+        },
+        [updateProfile.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.errMsg = action.error ? action.error.message : 'Fetch failed';
+        },
+        [createProfile.pending] : (state) => {
+            state.isLoading = true
+        },
+        [createProfile.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.errMsg = "";
+            state.profile = action.payload;
+        },
+        [createProfile.rejected]: (state, action) => {
             state.isLoading = false;
             state.errMsg = action.error ? action.error.message : 'Fetch failed';
         }
