@@ -35,8 +35,11 @@ export const loginUser = createAsyncThunk(
 );
 
 const initialState = {
+    token: localStorage.getItem('token'),
+    isAuthenticated: null,
     currentUser: "",
-    errMsg: ""
+    errMsg: "",
+    isLoading: true,
 };
 
 const userSlice = createSlice({
@@ -63,12 +66,17 @@ const userSlice = createSlice({
             state.isLoading = true
         },
         [loginUser.fulfilled]: (state, action) => {
+            localStorage.setItem('token', action.payload.token);
             state.isLoading = false;
             state.errMsg = "";
+            state.isAuthenticated = true;
             state.currentUser = action.payload;
         },
         [loginUser.rejected]: (state, action) => {
+            localStorage.removeItem('token');
+            state.token = null;
             state.isLoading = false;
+            state.isAuthenticated = false;
             state.errMsg = action.error ? action.error.message : 'Fetch failed';
         }
     }
