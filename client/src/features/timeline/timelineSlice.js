@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { baseUrl } from '../../shared/baseUrl';
 const BLOCKS = [{_id: 1, name: "Michele", date: "Jan 10, 2022"}, {_id: 2, name: "Tim", date: "Jan 11, 2022"}, {_id: 3, name: "Matt", date: "Jan 12, 2022"}]
-
+const token = localStorage.token;
 export const fetchBlocks = createAsyncThunk(
     'timeline/fetchBlocks',
     async () => {
-        const response = await fetch(baseUrl + 'recordings');
+        const response = await fetch(baseUrl + 'recordings', {
+            "Authorization": `Bearer ${token}`
+        });
         if (!response.ok) {
             return Promise.reject('Unable to fetch, status: ' + response.status);
         }
@@ -19,7 +21,10 @@ export const createPost = createAsyncThunk(
     async (payload) => {
         const response = await fetch(baseUrl + 'post', {
             method: 'post',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`
+            },
             body: JSON.stringify(payload)
         })
         if(!response.ok) {
@@ -35,7 +40,10 @@ export const editPost = createAsyncThunk(
     async (payload) => {
         const response = await fetch(baseUrl + 'post', {
             method: 'post',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}` 
+            },
             body: JSON.stringify(payload)
         })
         if(!response.ok) {
@@ -51,7 +59,10 @@ export const deletePost = createAsyncThunk(
     async(payload) => {
         const response = await fetch(baseUrl + 'post', {
             method: 'delete',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`
+            },
             body: JSON.stringify(payload)
         })
         if(!response.ok) {

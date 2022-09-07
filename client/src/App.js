@@ -10,12 +10,14 @@ import Login from './features/user/UserLoginForm';
 import Signup from './features/user/UserSignup';
 import Recording from './features/recordings/Recording';
 import { fetchBlocks } from './features/timeline/timelineSlice';
-
+import { Store } from 'tough-cookie';
+import { loadUser } from './features/user/userSlice';
+import { store} from './app/store';
 const App = () => {
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(fetchBlocks());
-  // }, [dispatch])
+  const dispatch = useDispatch();
+  useEffect(() => {
+    store.dispatch(loadUser())
+  }, []);
 
   return (
     <div className='st-container'>

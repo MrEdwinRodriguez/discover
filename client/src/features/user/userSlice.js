@@ -1,5 +1,25 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { baseUrl } from '../../shared/baseUrl';
+import setAuthToken from '../../utils/setAuthToken';
+const token = localStorage.token;
+
+
+export const loadUser = createAsyncThunk(
+    'user/loadUser',
+    async (dispatch) => {
+        const response = await fetch(baseUrl/users, {
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`
+            },
+        })        
+        if (!response.ok) {
+            return Promise.reject('Unable to fetch, status: ' + response.status);
+        }
+        const data = await response.json();
+        return data;
+    }
+)
 
 export const registerUser = createAsyncThunk(
     'user/register',
@@ -73,6 +93,22 @@ const userSlice = createSlice({
             state.currentUser = action.payload;
         },
         [loginUser.rejected]: (state, action) => {
+            localStorage.removeItem('token');
+            state.token = null;
+            state.isLoading = false;
+            state.isAuthenticated = false;
+            state.errMsg = action.error ? action.error.message : 'Fetch failed';
+        },
+        [loadUser.pending] : (state) => {
+            state.isLoading = true
+        },
+        [loadUser.fulfilled]: (state, action) => {
+            state.errMsg = "";
+            state.isLoading = false;
+            state.isAuthenticated = true;
+            state.currentUser = action.payload;
+        },
+        [loadUser.rejected]: (state, action) => {
             localStorage.removeItem('token');
             state.token = null;
             state.isLoading = false;
