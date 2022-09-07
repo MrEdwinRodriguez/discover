@@ -16,8 +16,9 @@ import { store} from './app/store';
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    store.dispatch(loadUser())
-  }, []);
+    // store.dispatch(loadUser())
+    dispatch(loadUser())
+  }, [dispatch]);
 
   return (
     <div className='st-container'>
