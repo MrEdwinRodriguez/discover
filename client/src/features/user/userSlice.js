@@ -7,7 +7,7 @@ const token = localStorage.token;
 export const loadUser = createAsyncThunk(
     'user/loadUser',
     async (dispatch) => {
-        const response = await fetch(baseUrl/users, {
+        const response = await fetch(baseUrl + "users", {
             headers: {
                 'Content-Type': 'application/json',
                 "Authorization": `Bearer ${token}`
@@ -87,6 +87,7 @@ const userSlice = createSlice({
         },
         [loginUser.fulfilled]: (state, action) => {
             localStorage.setItem('token', action.payload.token);
+            state.token = action.payload.token;
             state.isLoading = false;
             state.errMsg = "";
             state.isAuthenticated = true;

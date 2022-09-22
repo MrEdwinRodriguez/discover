@@ -14,7 +14,7 @@ export const saveRecording = createAsyncThunk(
             return Promise.reject('Unable to fetch, status: ' + response.status);
         }
         const data = await response.json();
-        dispatch(setCurrentRecording(data));
+        return data;
     }
 )
 
@@ -26,7 +26,19 @@ export const fetchUserRecordings = createAsyncThunk(
             return Promise.reject('Unable to fetch, status: ' + response.status);
         }
         const data = await response.json();
-        dispatch(setAllUserRecordings(data));
+        return data;
+    }
+);
+
+export const fetchRecoringById = createAsyncThunk(
+    'recording/fetchRecordingById',
+    async (userId, {dispatch}) => {
+        const response = await fetch(baseUrl + `recording/${userId}`);
+        if (!response.ok) {
+            return Promise.reject('Unable to fetch, status: ' + response.status);
+        }
+        const data = await response.json();
+        return data;
     }
 );
 
@@ -40,14 +52,7 @@ const initialState = {
 const recordingSlice = createSlice({
     name: 'recording',
     initialState,
-    reducers: {
-        setCurrentRecording: (state, action) => {
-            return {...state, recording: action.payload}
-        },
-        setAllUserRecordings: (state, action) => {
-            return {...state, recordingsArray: action.payload}
-        },
-    },
+    reducers: {},
     extraReducers: {
         [saveRecording.pending] : (state) => {
             state.isLoading = true
@@ -57,6 +62,30 @@ const recordingSlice = createSlice({
             state.errMsg = "";
         },
         [saveRecording.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.errMsg = action.error ? action.error.message : 'Fetch failed';
+        },
+        [fetchRecoringById.pending] : (state) => {
+            state.isLoading = true
+        },
+        [fetchRecoringById.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.errMsg = "";
+            state.recording = action.payload;
+        },
+        [fetchRecoringById.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.errMsg = action.error ? action.error.message : 'Fetch failed';
+        },
+        [fetchUserRecordings.pending] : (state) => {
+            state.isLoading = true
+        },
+        [fetchUserRecordings.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.errMsg = "";
+            state.recordingsArray = action.payload;
+        },
+        [fetchUserRecordings.rejected]: (state, action) => {
             state.isLoading = false;
             state.errMsg = action.error ? action.error.message : 'Fetch failed';
         }
