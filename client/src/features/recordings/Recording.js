@@ -20,6 +20,8 @@ const Recording = () => {
 	//audioData contains blob and blobUrl
 	const onStop = (audioData) => {
 		console.log('audioData', audioData);
+		const randomNumber = (Math.random())*100000;
+		audioData.name = 'test' + randomNumber;
 		setUrl(audioData.url)
 		dispatch(saveRecording(audioData));
 	}

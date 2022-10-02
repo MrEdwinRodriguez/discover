@@ -5,10 +5,11 @@ import { baseUrl } from '../../shared/baseUrl';
 export const saveRecording = createAsyncThunk(
     'recording/save',
     async (payload, {dispatch}) => {
+        let formData = new FormData()
+        formData.append('track', payload.blob, payload.name + ".wav");
         const response = await fetch(baseUrl + 'recording', {
-            method: 'post',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify(payload)
+            method: 'POST',
+            body: formData
         });
         if (!response.ok) {
             return Promise.reject('Unable to fetch, status: ' + response.status);
